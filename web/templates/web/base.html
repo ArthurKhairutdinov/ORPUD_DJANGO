@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+</head>
+<body>
+<nav>
+    <a href="{% url 'main' %}">Главная</a>
+    <a href="{% url 'analytics' %}">Аналитика</a>
+    <a href="{% url 'import' %}">Импорт</a>
+    {% if user.is_anonymous %}
+        <a href="{% url 'reg' %}">Регистрация</a>
+        <a href="{% url 'auth' %}">Войти</a>
+    {% else %}
+        <a href="{% url 'logout' %}">Выйти</a>
+        <a href="{% url 'review_add'%}">Добавить оценку</a>
+        <div>Hello {{user.username}}</div>
+    {% endif %}
+
+
+
+
+</nav>
+{% block content %}
+{% endblock %}
+</body>
+</html>

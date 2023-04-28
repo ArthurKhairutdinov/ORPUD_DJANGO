@@ -1,0 +1,45 @@
+{% extends 'web/base.html' %}
+{% block content %}
+    {% if not user.is_anonymous %}
+
+    <hr>
+    <FORM action="">
+        <b>Фильтры</b><br>
+        {% for field in filter_form %}
+            {{ field.label }}
+            {{ field }}
+        {% endfor %}
+    <button>Найти</button>
+        <button name="export" value="csv"></button>
+    <a href="?">Очистить</a>
+    </FORM>
+
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <b>{{review.name}}</b>
+                {{review.score}}
+                {{review.date}}
+                {{review.is_recommended}}
+                {{review.review}}
+                <a href="{% url 'review_edit' review.id%}">изменить</a>
+                <a href="{% url 'review_delete' review.id%}">удалить</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% endif %}
+    <nav>
+        {% if reviews.has_previous %}
+            <a href="?page=1">в начало</a>
+            <a href="?page={{ reviews.previous_page_number }}">предыдущая</a>
+        {% endif %}
+
+    страница {{ reviews.number }} из {{ reviews.paginator.num_pages }}
+
+    {% if reviews.has_next %}
+            <a href="?page={{ reviews.next_page_number }}">следующая</a>
+            <a href="?page={{ reviews.paginator.num_pages }}">в конец</a>
+        {% endif %}
+    </nav>
+{% endblock %}
