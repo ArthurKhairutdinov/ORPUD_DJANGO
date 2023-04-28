@@ -1,0 +1,18 @@
+{% extends 'web/base.html' %}
+{% block content %}
+    <p>Всего {{ overall_stat.id__count }} обзор</p>
+    <p>Самый ранний обзор {{ overall_stat.date__min }}</p>
+    <p>Самый поздний обзор {{ overall_stat.date__max }}</p>
+    <p>Средний балл {{ overall_stat.score__avg }}</p>
+    <p>Всего рекомендовано {{ overall_stat.count_rec }}</p>
+    <p>Всего не рекомендовано {{ overall_stat.count_not_rec }}</p>
+
+    Статистика по дням
+    <ul>
+    {% for day_stat in date_stat %}
+    <li>{{ day_stat.dates }} Всего:{{ day_stat.count }} обзоров,
+        Положительных: {{ day_stat.is_recommended }}
+        Средняя оценка: {{ day_stat.avg_score }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
